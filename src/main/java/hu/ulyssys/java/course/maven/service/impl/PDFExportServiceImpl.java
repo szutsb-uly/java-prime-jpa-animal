@@ -10,7 +10,9 @@ import hu.ulyssys.java.course.maven.service.PDFExportService;
 import hu.ulyssys.java.course.maven.service.SlugService;
 
 import javax.inject.Inject;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class PDFExportServiceImpl implements PDFExportService {
     @Inject
