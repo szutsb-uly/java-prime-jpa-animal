@@ -15,83 +15,22 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class DogCRUDMbean implements Serializable {
-    private List<Farmer> farmerList;
+public class DogCRUDMbean extends FarmerAwareCRUDMBean<Dog> implements Serializable {
 
-    private List<Dog> list;
-    private Dog selectedDog;
-    private boolean inFunction;
-
-    private DogService dogService;
 
     @Inject
     public DogCRUDMbean(DogService dogService, FarmerService farmerService) {
-        this.dogService = dogService;
-        list = dogService.getAll();
-        farmerList = farmerService.getAll();
-
-        selectedDog = new Dog();
+        super(dogService, farmerService);
     }
 
-    public void initSave() {
-        selectedDog = new Dog();
-        inFunction = true;
+
+    @Override
+    protected String dialogName() {
+        return "dogDialog";
     }
 
-    public void initEdit() {
-        inFunction = true;
-    }
-
-    public void save() {
-        if (selectedDog.getId() == null) {
-            dogService.add(selectedDog);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres hozzáadás! név:" + selectedDog.getName()));
-            list = dogService.getAll();
-            selectedDog = new Dog();
-
-        } else {
-            dogService.update(selectedDog);
-            list = dogService.getAll();
-            selectedDog = new Dog();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres módosítás"));
-        }
-        inFunction = false;
-    }
-
-    public void remove() {
-        dogService.remove(selectedDog);
-        list = dogService.getAll();
-        inFunction = false;
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
-
-    }
-
-    public List<Dog> getList() {
-        return list;
-    }
-
-    public void setList(List<Dog> list) {
-        this.list = list;
-    }
-
-    public Dog getSelectedDog() {
-        return selectedDog;
-    }
-
-    public void setSelectedDog(Dog selectedDog) {
-        this.selectedDog = selectedDog;
-    }
-
-    public boolean isInFunction() {
-        return inFunction;
-    }
-
-    public List<Farmer> getFarmerList() {
-        return farmerList;
-    }
-
-    public void setFarmerList(List<Farmer> farmerList) {
-        this.farmerList = farmerList;
+    @Override
+    protected Dog initNewEntity() {
+        return new Dog();
     }
 }

@@ -14,61 +14,23 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class FarmerCRUDMbean implements Serializable {
+public class FarmerCRUDMbean extends CoreCRUDMbean<Farmer> implements Serializable {
 
-    private List<Farmer> list;
-    private Farmer selectedFarmer;
-
-    private FarmerService farmerService;
 
     @Inject
     public FarmerCRUDMbean(FarmerService farmerService) {
-        this.farmerService = farmerService;
-        list = farmerService.getAll();
-        selectedFarmer = new Farmer();
-    }
-
-    public void initSave() {
-        selectedFarmer = new Farmer();
-    }
-
-    public void save() {
-        if (selectedFarmer.getId() == null) {
-            farmerService.add(selectedFarmer);
-            list = farmerService.getAll();
-            selectedFarmer = new Farmer();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres mentés"));
-
-        } else {
-            farmerService.update(selectedFarmer);
-            list = farmerService.getAll();
-            selectedFarmer = new Farmer();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres módosítás"));
-        }
-        PrimeFaces.current().executeScript("PF('farmerDialog').hide()");
-    }
-
-    public void remove() {
-        farmerService.remove(selectedFarmer);
-        list = farmerService.getAll();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
+        super(farmerService);
 
     }
 
-    public List<Farmer> getList() {
-        return list;
+
+    @Override
+    protected String dialogName() {
+        return "farmerDialog";
     }
 
-    public void setList(List<Farmer> list) {
-        this.list = list;
+    @Override
+    protected Farmer initNewEntity() {
+        return new Farmer();
     }
-
-    public Farmer getSelectedFarmer() {
-        return selectedFarmer;
-    }
-
-    public void setSelectedFarmer(Farmer selectedFarmer) {
-        this.selectedFarmer = selectedFarmer;
-    }
-
 }

@@ -16,11 +16,11 @@
             <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
                              actionListener="#{slugCRUDMbean.initSave}" update="@([id$=slugForm])"
                              oncomplete="PF('slugDialog').show()"/>
-            <p:commandButton disabled="#{slugCRUDMbean.selectedSlug.id==null}" id="delete" icon="pi pi-times"
+            <p:commandButton disabled="#{slugCRUDMbean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
                              process="@this" value="Törlés" actionListener="#{slugCRUDMbean.remove}" update="@form">
                 <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
             </p:commandButton>
-            <p:commandButton disabled="#{slugCRUDMbean.selectedSlug.id==null}" id="update" process="@this"
+            <p:commandButton disabled="#{slugCRUDMbean.selectedEntity.id==null}" id="update" process="@this"
                              value="Módosítás" icon="pi pi-pencil" update="@([id$=slugForm])"
                              oncomplete="PF('slugDialog').show()"/>
         </p:toolbarGroup>
@@ -45,7 +45,7 @@
     </p:toolbar>
 
     <p:dataTable id="table" paginator="true" value="#{slugCRUDMbean.list}" var="slug"
-                 selectionMode="single" selection="#{slugCRUDMbean.selectedSlug}" rowKey="#{slug.id}"
+                 selectionMode="single" selection="#{slugCRUDMbean.selectedEntity}" rowKey="#{slug.id}"
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                  rowsPerPageTemplate="5,10,{ShowAll|'All'}">
@@ -76,15 +76,15 @@
     <h:form id="slugForm">
         <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
             <p:outputLabel value="Név"/>
-            <p:inputText value="#{slugCRUDMbean.selectedSlug.name}" required="true" requiredMessage="Név kötelező"/>
+            <p:inputText value="#{slugCRUDMbean.selectedEntity.name}" required="true" requiredMessage="Név kötelező"/>
 
             <p:outputLabel value="Lábak száma"/>
             <p:inputNumber maxValue="100" thousandSeparator="" decimalPlaces="0"
-                           value="#{slugCRUDMbean.selectedSlug.legsNumber}" required="true"
+                           value="#{slugCRUDMbean.selectedEntity.legsNumber}" required="true"
                            requiredMessage="Lábak száma kötelező"/>
 
             <p:outputLabel value="Farmer"/>
-            <p:selectOneMenu value="#{slugCRUDMbean.selectedSlug.farmer}" converter="#{farmerConverter}">
+            <p:selectOneMenu value="#{slugCRUDMbean.selectedEntity.farmer}" converter="#{farmerConverter}">
                 <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon"/>
                 <f:selectItems value="#{slugCRUDMbean.farmerList}" var="farmer" itemLabel="#{farmer.fullName}" itemValue="#{farmer}"/>
             </p:selectOneMenu>
