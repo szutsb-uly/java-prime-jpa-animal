@@ -1,4 +1,4 @@
-package hu.ulyssys.java.course.maven.mbean;
+package hu.ulyssys.java.courrse.maven.mbean;
 
 import hu.ulyssys.java.course.maven.entity.AbstractAnimal;
 import hu.ulyssys.java.course.maven.entity.Farmer;

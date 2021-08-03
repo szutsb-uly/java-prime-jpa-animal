@@ -1,4 +1,4 @@
-package hu.ulyssys.java.course.maven.mbean;
+package hu.ulyssys.java.courrse.maven.mbean;
 
 import hu.ulyssys.java.course.maven.entity.Slug;
 import hu.ulyssys.java.course.maven.service.FarmerService;

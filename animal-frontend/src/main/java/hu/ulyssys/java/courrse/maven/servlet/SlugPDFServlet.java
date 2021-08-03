@@ -1,4 +1,4 @@
-package hu.ulyssys.java.course.maven.servlet;
+package hu.ulyssys.java.courrse.maven.servlet;
 
 import hu.ulyssys.java.course.maven.service.PDFExportService;
 

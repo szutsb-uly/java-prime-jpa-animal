@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hu.ulyssys.java.course</groupId>
-    <artifactId>animal-web-demo</artifactId>
+    <artifactId>animal-frontend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -19,11 +19,6 @@
         <dependency>
             <groupId>hu.ulyssys.java.course</groupId>
             <artifactId>animal-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>hu.ulyssys.java.course</groupId>
-            <artifactId>animal-backend</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 

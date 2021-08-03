@@ -1,16 +1,12 @@
-package hu.ulyssys.java.course.maven.mbean;
+package hu.ulyssys.java.courrse.maven.mbean;
 
 import hu.ulyssys.java.course.maven.entity.Farmer;
 import hu.ulyssys.java.course.maven.service.FarmerService;
-import org.primefaces.PrimeFaces;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 
 @Named
 @ViewScoped
