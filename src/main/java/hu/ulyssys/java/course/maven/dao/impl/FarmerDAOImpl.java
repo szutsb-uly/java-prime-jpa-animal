@@ -3,14 +3,14 @@ package hu.ulyssys.java.course.maven.dao.impl;
 import hu.ulyssys.java.course.maven.dao.FarmerDAO;
 import hu.ulyssys.java.course.maven.entity.Farmer;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-@ApplicationScoped
+@Stateless
 public class FarmerDAOImpl extends CoreDAOImpl<Farmer> implements FarmerDAO {
 
 

@@ -3,9 +3,9 @@ package hu.ulyssys.java.course.maven.dao.impl;
 import hu.ulyssys.java.course.maven.dao.CatDAO;
 import hu.ulyssys.java.course.maven.entity.Cat;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 
-@ApplicationScoped
+@Stateless
 public class CatDAOImpl extends CoreDAOImpl<Cat> implements CatDAO {
 
     @Override

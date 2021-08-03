@@ -3,9 +3,9 @@ package hu.ulyssys.java.course.maven.dao.impl;
 import hu.ulyssys.java.course.maven.dao.DogDAO;
 import hu.ulyssys.java.course.maven.entity.Dog;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 
-@ApplicationScoped
+@Stateless
 public class DogDAOImpl extends CoreDAOImpl<Dog> implements DogDAO {
 
     @Override

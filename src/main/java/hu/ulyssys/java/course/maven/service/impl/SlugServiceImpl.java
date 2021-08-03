@@ -3,9 +3,9 @@ package hu.ulyssys.java.course.maven.service.impl;
 import hu.ulyssys.java.course.maven.entity.Slug;
 import hu.ulyssys.java.course.maven.service.SlugService;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 
-@ApplicationScoped
+@Stateless
 public class SlugServiceImpl extends AbstractServiceImpl<Slug> implements SlugService {
 
 }

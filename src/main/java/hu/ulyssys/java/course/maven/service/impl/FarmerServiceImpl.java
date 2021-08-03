@@ -4,9 +4,9 @@ import hu.ulyssys.java.course.maven.dao.FarmerDAO;
 import hu.ulyssys.java.course.maven.entity.Farmer;
 import hu.ulyssys.java.course.maven.service.FarmerService;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 
-@ApplicationScoped
+@Stateless
 public class FarmerServiceImpl extends AbstractServiceImpl<Farmer> implements FarmerService {
 
     @Override
