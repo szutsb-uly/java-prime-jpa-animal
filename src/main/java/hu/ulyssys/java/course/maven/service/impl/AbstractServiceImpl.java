@@ -1,23 +1,38 @@
 package hu.ulyssys.java.course.maven.service.impl;
 
-import hu.ulyssys.java.course.maven.entity.AbstractAnimal;
+import hu.ulyssys.java.course.maven.dao.CoreDAO;
+import hu.ulyssys.java.course.maven.entity.AbstractEntity;
+import hu.ulyssys.java.course.maven.service.CoreService;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
-public abstract class AbstractServiceImpl<T extends AbstractAnimal> {
-    private List<T> list = new ArrayList<>();
+public abstract class AbstractServiceImpl<T extends AbstractEntity> implements CoreService<T> {
+    @Inject
+    protected CoreDAO<T> dao;
 
+    @Override
     public List<T> getAll() {
-        return list;
+        return dao.findAll();
     }
 
-    public void add(T animal) {
-        list.add(animal);
+    @Transactional
+    @Override
+    public void add(T entity) {
+        dao.save(entity);
     }
 
-    public void remove(T animal) {
-        list.remove(animal);
+    @Transactional
+    @Override
+    public void remove(T entity) {
+        dao.delete(entity.getId());
+    }
+
+    @Transactional
+    @Override
+    public void update(T entity) {
+        dao.update(entity);
     }
 
 }

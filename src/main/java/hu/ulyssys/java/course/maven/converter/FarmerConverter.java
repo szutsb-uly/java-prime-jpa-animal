@@ -24,7 +24,7 @@ public class FarmerConverter implements Converter {
             return null;
         }
         //SQL query lesz majd, findByName
-        return farmerService.getAll().stream().filter(farmer -> farmer.getFullName().equals(s)).findFirst().orElse(null);
+        return farmerService.findByName(s);
 
     }
 

@@ -4,6 +4,11 @@ import hu.ulyssys.java.course.maven.dao.FarmerDAO;
 import hu.ulyssys.java.course.maven.entity.Farmer;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 @ApplicationScoped
 public class FarmerDAOImpl extends CoreDAOImpl<Farmer> implements FarmerDAO {
@@ -11,8 +16,19 @@ public class FarmerDAOImpl extends CoreDAOImpl<Farmer> implements FarmerDAO {
 
     @Override
     public Farmer findByName(String name) {
-        //TODO CriteryQuery
-        return null;
+        //select f from Farmer f where fullname=name;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Farmer> criteriaQuery = criteriaBuilder.createQuery(Farmer.class);
+        Root<Farmer> root = criteriaQuery.from(Farmer.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("fullName"), name));
+        TypedQuery<Farmer> query = entityManager.createQuery(criteriaQuery);
+
+        //TypedQuery<Farmer> query = entityManager.createQuery("select f from Farmer f where f.fullName=:name", Farmer.class);
+        List<Farmer> list = query.getResultList();
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override

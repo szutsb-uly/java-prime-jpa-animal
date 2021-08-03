@@ -4,20 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Farmer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Farmer  extends AbstractEntity{
+
     @Column(name = "full_name", unique = true)
     private String fullName;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFullName() {
         return fullName;
@@ -34,13 +24,13 @@ public class Farmer {
 
         Farmer farmer = (Farmer) o;
 
-        if (id != null ? !id.equals(farmer.id) : farmer.id != null) return false;
+        if (getId() != null ? !getId().equals(farmer.getId()) : farmer.getId() != null) return false;
         return fullName != null ? fullName.equals(farmer.fullName) : farmer.fullName == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         return result;
     }

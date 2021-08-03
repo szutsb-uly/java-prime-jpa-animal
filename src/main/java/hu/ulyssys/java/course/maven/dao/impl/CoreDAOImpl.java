@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class CoreDAOImpl<T> implements CoreDAO<T> {
     @PersistenceContext(unitName = "TestPersistence")
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @Override
     public List<T> findAll() {

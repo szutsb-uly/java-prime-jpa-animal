@@ -3,11 +3,8 @@ package hu.ulyssys.java.course.maven.entity;
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class AbstractAnimal implements AnimalTypeAware {
+public abstract class AbstractAnimal extends AbstractEntity implements AnimalTypeAware {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "legs_number")
@@ -20,19 +17,6 @@ public abstract class AbstractAnimal implements AnimalTypeAware {
     public AbstractAnimal() {
     }
 
-    public AbstractAnimal(Long id, String name, Integer legsNumber) {
-        this.id = id;
-        this.name = name;
-        this.legsNumber = legsNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

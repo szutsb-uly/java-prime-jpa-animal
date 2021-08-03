@@ -1,15 +1,13 @@
 package hu.ulyssys.java.course.maven.service;
 
-import hu.ulyssys.java.course.maven.entity.AbstractAnimal;
-
 import java.util.List;
 
-public interface CoreService<T extends AbstractAnimal> {
+public interface CoreService<T> {
     List<T> getAll();
 
-    void add(T animal);
+    void add(T entity);
 
-    void remove(T animal);
+    void remove(T entity);
 
-    void update(T animal);
+    void update(T entity);
 }
