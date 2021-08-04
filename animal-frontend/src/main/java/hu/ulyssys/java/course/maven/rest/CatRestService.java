@@ -6,6 +6,7 @@ import hu.ulyssys.java.course.maven.service.CatService;
 import hu.ulyssys.java.course.maven.service.FarmerService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,10 +28,12 @@ public class CatRestService {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(CatModel model) {
+    public Response save(@Valid CatModel model) {
+
         Cat cat = new Cat();
         cat.setId(model.getId());
         cat.setLegsNumber(model.getLegsNumber());
+        cat.setName(model.getName());
         if (model.getFarmerID() != null) {
             cat.setFarmer(farmerService.findById(model.getFarmerID()));
         }
@@ -41,7 +44,7 @@ public class CatRestService {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(CatModel model) {
+    public Response update(@Valid CatModel model) {
         Cat cat = catService.findById(model.getId());
         if (cat == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
