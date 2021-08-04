@@ -21,6 +21,12 @@
         </dependency>
         <dependency>
             <groupId>hu.ulyssys.java.course</groupId>
+            <artifactId>animal-export-backend</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>hu.ulyssys.java.course</groupId>
             <artifactId>animal-frontend</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>war</type>
@@ -39,6 +45,10 @@
                         <ejbModule>
                             <groupId>hu.ulyssys.java.course</groupId>
                             <artifactId>animal-backend</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>hu.ulyssys.java.course</groupId>
+                            <artifactId>animal-export-backend</artifactId>
                         </ejbModule>
                         <webModule>
                             <groupId>hu.ulyssys.java.course</groupId>

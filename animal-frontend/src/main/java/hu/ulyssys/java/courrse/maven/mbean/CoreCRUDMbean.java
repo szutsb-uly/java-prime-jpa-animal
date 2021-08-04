@@ -40,43 +40,43 @@ public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Seriali
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres módosítás"));
             }
             PrimeFaces.current().executeScript("PF('" + dialogName() + "').hide()");
-            }catch(Exception e){
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
 
-            }
-        }
-
-
-        public void remove () {
-            try {
-                service.remove(selectedEntity);
-                list = service.getAll();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
-
-            }
-
-
-        }
-
-        protected abstract String dialogName ();
-
-        protected abstract T initNewEntity ();
-
-        public List<T> getList () {
-            return list;
-        }
-
-        public void setList (List < T > list) {
-            this.list = list;
-        }
-
-        public T getSelectedEntity () {
-            return selectedEntity;
-        }
-
-        public void setSelectedEntity (T selectedEntity){
-            this.selectedEntity = selectedEntity;
         }
     }
+
+
+    public void remove() {
+        try {
+            service.remove(selectedEntity);
+            list = service.getAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
+
+        }
+
+
+    }
+
+    protected abstract String dialogName();
+
+    protected abstract T initNewEntity();
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public T getSelectedEntity() {
+        return selectedEntity;
+    }
+
+    public void setSelectedEntity(T selectedEntity) {
+        this.selectedEntity = selectedEntity;
+    }
+}
