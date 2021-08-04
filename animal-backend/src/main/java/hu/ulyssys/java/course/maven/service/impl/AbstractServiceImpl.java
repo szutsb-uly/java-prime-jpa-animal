@@ -20,6 +20,12 @@ public abstract class AbstractServiceImpl<T extends AbstractEntity> implements C
         return dao.findAll();
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @Override
+    public T findById(Long id) {
+        return dao.findById(id);
+    }
+
     @Override
     public void add(T entity) {
         dao.save(entity);

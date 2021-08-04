@@ -1,7 +1,6 @@
-package hu.ulyssys.java.courrse.maven.mbean;
+package hu.ulyssys.java.course.maven.mbean;
 
 import hu.ulyssys.java.course.maven.entity.Reindeer;
-import hu.ulyssys.java.course.maven.service.CatService;
 import hu.ulyssys.java.course.maven.service.FarmerService;
 import hu.ulyssys.java.course.maven.service.ReindeerService;
 
