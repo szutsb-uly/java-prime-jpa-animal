@@ -26,26 +26,37 @@ public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Seriali
     }
 
     public void save() {
-        if (selectedEntity.getId() == null) {
-            service.add(selectedEntity);
-            list = service.getAll();
-            selectedEntity = initNewEntity();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres mentés"));
+        try {
+            if (selectedEntity.getId() == null) {
+                service.add(selectedEntity);
+                list = service.getAll();
+                selectedEntity = initNewEntity();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres mentés"));
 
-        } else {
-            service.update(selectedEntity);
-            list = service.getAll();
-            selectedEntity = initNewEntity();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres módosítás"));
+            } else {
+                service.update(selectedEntity);
+                list = service.getAll();
+                selectedEntity = initNewEntity();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres módosítás"));
+            }
+            PrimeFaces.current().executeScript("PF('" + dialogName() + "').hide()");
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen Mentés", null));
+
         }
-        PrimeFaces.current().executeScript("PF('" + dialogName() + "').hide()");
     }
 
 
     public void remove() {
-        service.remove(selectedEntity);
-        list = service.getAll();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
+        try {
+            service.remove(selectedEntity);
+            list = service.getAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sikeres törlés"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
+
+        }
+
 
     }
 

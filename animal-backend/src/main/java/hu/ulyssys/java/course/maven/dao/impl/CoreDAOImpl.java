@@ -1,6 +1,7 @@
 package hu.ulyssys.java.course.maven.dao.impl;
 
 import hu.ulyssys.java.course.maven.dao.CoreDAO;
+import hu.ulyssys.java.course.maven.entity.AbstractEntity;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -8,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public abstract class CoreDAOImpl<T> implements CoreDAO<T> {
+public abstract class CoreDAOImpl<T extends AbstractEntity> implements CoreDAO<T> {
     @PersistenceContext(unitName = "TestPersistence")
     protected EntityManager entityManager;
 
