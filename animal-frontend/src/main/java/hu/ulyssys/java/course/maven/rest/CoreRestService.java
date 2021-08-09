@@ -1,8 +1,11 @@
 package hu.ulyssys.java.course.maven.rest;
 
 import hu.ulyssys.java.course.maven.entity.AbstractAnimal;
+import hu.ulyssys.java.course.maven.entity.Cat;
 import hu.ulyssys.java.course.maven.rest.model.CoreRestModel;
+import hu.ulyssys.java.course.maven.service.CatService;
 import hu.ulyssys.java.course.maven.service.CoreService;
+import hu.ulyssys.java.course.maven.service.FarmerAwareService;
 import hu.ulyssys.java.course.maven.service.FarmerService;
 
 import javax.inject.Inject;
@@ -18,13 +21,37 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
 
     @Inject
     private FarmerService farmerService;
+
     @Inject
-    private CoreService<T> catService;
+    private CoreService<T> coreService;
+
+    @Inject
+    private FarmerAwareService<T> farmerAwareService;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response findByID(@PathParam("id") Long id) {
+        T entity = coreService.findById(id);
+        if (entity == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(createModelFromEntity(entity)).build();
+
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/owner/{id}")
+    public Response findByFarmerId(@PathParam("id") Long id) {
+        return Response.ok(farmerAwareService.findByFarmerId(id).stream().map(this::createModelFromEntity).collect(Collectors.toList())).build();
+
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        return Response.ok(catService.getAll().stream().map(this::createModelFromEntity).collect(Collectors.toList())).build();
+        return Response.ok(coreService.getAll().stream().map(this::createModelFromEntity).collect(Collectors.toList())).build();
     }
 
     @POST
@@ -35,7 +62,7 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
         T entity = initNewEntity();
         populateEntityFromModel(entity, model);
 
-        catService.add(entity);
+        coreService.add(entity);
         return Response.ok(createModelFromEntity(entity)).build();
     }
 
@@ -43,12 +70,12 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@Valid M model) {
-        T entity = catService.findById(model.getId());
+        T entity = coreService.findById(model.getId());
         if (entity == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         populateEntityFromModel(entity, model);
-        catService.update(entity);
+        coreService.update(entity);
         return Response.ok(createModelFromEntity(entity)).build();
 
     }
@@ -57,11 +84,11 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Long id) {
-        T entity = catService.findById(id);
+        T entity = coreService.findById(id);
         if (entity == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        catService.remove(entity);
+        coreService.remove(entity);
         return Response.ok().build();
     }
 
@@ -90,7 +117,7 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
         try {
             // A konténer, beinjectáláskor, egy Proxy obejktumot hoz létre, ezért kérszer kell leolvasnunk ebben az esetben a ősosztály, és annak típusát
             // Ha model paraméterre szükség, akkor 1 indexű elem kellene az array-ből
-            Class<T> type = (Class<T>) (((ParameterizedType)((Class)getClass().getGenericSuperclass()).getGenericSuperclass())).getActualTypeArguments()[1];
+            Class<T> type = (Class<T>) (((ParameterizedType) ((Class) getClass().getGenericSuperclass()).getGenericSuperclass())).getActualTypeArguments()[1];
             return type.getConstructor().newInstance();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

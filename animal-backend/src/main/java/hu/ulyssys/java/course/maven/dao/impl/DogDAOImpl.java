@@ -6,7 +6,7 @@ import hu.ulyssys.java.course.maven.entity.Dog;
 import javax.ejb.Stateless;
 
 @Stateless
-public class DogDAOImpl extends CoreDAOImpl<Dog> implements DogDAO {
+public class DogDAOImpl extends AbstractFarmerAwareDAOImpl<Dog> implements DogDAO {
 
     @Override
     protected Class<Dog> getManagedClass() {

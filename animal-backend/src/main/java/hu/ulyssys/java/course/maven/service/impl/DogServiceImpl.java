@@ -6,6 +6,6 @@ import hu.ulyssys.java.course.maven.service.DogService;
 import javax.ejb.Stateless;
 
 @Stateless
-public class DogServiceImpl extends AbstractServiceImpl<Dog>  implements DogService {
+public class DogServiceImpl extends AbstractFarmerServiceImpl<Dog>  implements DogService {
 
 }

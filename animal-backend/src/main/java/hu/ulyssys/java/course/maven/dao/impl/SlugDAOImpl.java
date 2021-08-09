@@ -6,7 +6,7 @@ import hu.ulyssys.java.course.maven.entity.Slug;
 import javax.ejb.Stateless;
 
 @Stateless
-public class SlugDAOImpl extends CoreDAOImpl<Slug> implements SlugDAO {
+public class SlugDAOImpl extends AbstractFarmerAwareDAOImpl<Slug> implements SlugDAO {
 
     @Override
     protected Class<Slug> getManagedClass() {

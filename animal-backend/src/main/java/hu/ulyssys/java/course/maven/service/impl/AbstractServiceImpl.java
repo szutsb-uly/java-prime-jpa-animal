@@ -7,7 +7,6 @@ import hu.ulyssys.java.course.maven.service.CoreService;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 
 public abstract class AbstractServiceImpl<T extends AbstractEntity> implements CoreService<T> {

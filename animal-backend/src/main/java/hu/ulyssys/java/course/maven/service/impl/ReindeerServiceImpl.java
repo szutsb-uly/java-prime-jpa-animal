@@ -6,5 +6,5 @@ import hu.ulyssys.java.course.maven.service.ReindeerService;
 import javax.ejb.Stateless;
 
 @Stateless
-public class ReindeerServiceImpl extends AbstractServiceImpl<Reindeer> implements ReindeerService {
+public class ReindeerServiceImpl extends AbstractFarmerServiceImpl<Reindeer> implements ReindeerService {
 }

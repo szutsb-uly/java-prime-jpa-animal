@@ -34,3 +34,13 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/api/dog/owner/1
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/dog/2000
+Accept: application/json
+
+###
+

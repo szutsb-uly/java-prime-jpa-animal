@@ -2,14 +2,8 @@ package hu.ulyssys.java.course.maven.rest;
 
 import hu.ulyssys.java.course.maven.entity.Reindeer;
 import hu.ulyssys.java.course.maven.rest.model.ReindeerModel;
-import hu.ulyssys.java.course.maven.service.FarmerService;
-import hu.ulyssys.java.course.maven.service.ReindeerService;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.stream.Collectors;
+import javax.ws.rs.Path;
 
 @Path("/reindeer")
 public class ReindeerRestService extends CoreRestService<Reindeer, ReindeerModel> {

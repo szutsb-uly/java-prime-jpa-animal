@@ -34,3 +34,14 @@ Accept: application/json
 
 ###
 
+
+###
+GET http://localhost:8080/api/cat/owner/1
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/cat/16
+Accept: application/json
+
+###

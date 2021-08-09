@@ -6,7 +6,7 @@ import hu.ulyssys.java.course.maven.entity.Reindeer;
 import javax.ejb.Stateless;
 
 @Stateless
-public class ReindeerDAOImpl extends CoreDAOImpl<Reindeer> implements ReindeerDAO {
+public class ReindeerDAOImpl extends AbstractFarmerAwareDAOImpl<Reindeer> implements ReindeerDAO {
     @Override
     protected Class<Reindeer> getManagedClass() {
         return Reindeer.class;

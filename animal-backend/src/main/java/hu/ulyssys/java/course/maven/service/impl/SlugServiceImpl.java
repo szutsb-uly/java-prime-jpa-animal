@@ -6,6 +6,6 @@ import hu.ulyssys.java.course.maven.service.SlugService;
 import javax.ejb.Stateless;
 
 @Stateless
-public class SlugServiceImpl extends AbstractServiceImpl<Slug> implements SlugService {
+public class SlugServiceImpl extends AbstractFarmerServiceImpl<Slug> implements SlugService {
 
 }
