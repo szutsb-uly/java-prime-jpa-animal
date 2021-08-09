@@ -14,9 +14,11 @@ public class MenuCRUDMbean extends CoreCRUDMbean<MenuItem> implements Serializab
 
 
     @Inject
-    public MenuCRUDMbean(MenuItemService menuItemService) {
+    public MenuCRUDMbean(MenuItemService menuItemService, LoggedInUserBean loggedInUserBean) {
         super(menuItemService);
-
+        if (!loggedInUserBean.isAdmin()) {
+            throw new SecurityException("Nincs elég jogosultság");
+        }
     }
 
 

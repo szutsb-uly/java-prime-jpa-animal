@@ -12,7 +12,7 @@
 <h:body>
 
     <ui:insert name="menuBar">
-        <h:form id="menuForm">
+        <h:form id="menubarForm">
             <!--hogyen kellene úgy model-el elkészíteni a menüt, hogy uygan így nézzen ki-->
             <p:menubar model="#{menuProviderBean.getMenuModel()}">
                 <f:facet name="options">
@@ -23,7 +23,7 @@
                                    value="#{loggedInUserBean.model.username}"/>
 
                     <p:commandButton actionListener="#{loginRequestBean.doLogout()}" rendered="#{loggedInUserBean.isLoggedIn()}" value="Logout" icon="pi pi-fw pi-sign-out"
-                              styleClass="ui-button-info" update="@form"/>
+                              styleClass="ui-button-info" update="@form  @([id$=crudFunctionToolbar])"/>
                 </f:facet>
             </p:menubar>
         </h:form>
@@ -36,7 +36,7 @@
                 <p:password value="#{loginRequestBean.model.password}"/>
 
                 <p:separator/>
-                <p:commandButton value="Login" actionListener="#{loginRequestBean.doLogin}" update="@([id$=menuForm])"/>
+                <p:commandButton value="Login" actionListener="#{loginRequestBean.doLogin}" update="@([id$=menubarForm])  @([id$=crudFunctionToolbar])"/>
             </h:form>
         </p:dialog>
     </ui:insert>

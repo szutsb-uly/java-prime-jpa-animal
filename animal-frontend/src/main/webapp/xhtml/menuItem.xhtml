@@ -51,6 +51,9 @@
                     <p:inputText value="#{menuCRUDMbean.selectedEntity.url}" required="true"
                                  requiredMessage="URL kötelező"/>
 
+                    <p:outputLabel value="Admin funkció"/>
+                    <p:selectBooleanCheckbox value="#{menuCRUDMbean.selectedEntity.adminFunction}"/>
+
                     <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{menuCRUDMbean.save()}"
                                      process="formPanel" update=":form"/>
                 </p:panelGrid>

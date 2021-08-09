@@ -24,10 +24,13 @@ import java.util.UUID;
 @ViewScoped
 public class AppUserCRUDMbean extends CoreCRUDMbean<AppUser> implements Serializable {
 
-    @Inject
-    public AppUserCRUDMbean(AppUserService userService) {
-        super(userService);
 
+    @Inject
+    public AppUserCRUDMbean(AppUserService userService, LoggedInUserBean loggedInUserBean) {
+        super(userService);
+        if (!loggedInUserBean.isAdmin()) {
+            throw new SecurityException("Nincs elég jogosultság");
+        }
     }
 
     @Override
