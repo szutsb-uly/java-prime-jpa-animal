@@ -3,32 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>hu.ulyssys.java.course</groupId>
+    <parent>
+        <groupId>hu.ulyssys.java.course</groupId>
+        <artifactId>animal-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
     <artifactId>animal-ear</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>ear</packaging>
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hu.ulyssys.java.course</groupId>
             <artifactId>animal-backend</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>hu.ulyssys.java.course</groupId>
             <artifactId>animal-export-backend</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>hu.ulyssys.java.course</groupId>
             <artifactId>animal-frontend</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
     </dependencies>
