@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<body>
+<ui:composition template="layout/mainTemplate.xhtml">
+
+    <ui:define name="title">Menu karbantartó</ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="false"/>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
+                                     actionListener="#{menuCRUDMbean.initSave}" update="@([id$=menuForm])"
+                                     oncomplete="PF('menuDialog').show()"/>
+                    <p:commandButton disabled="#{menuCRUDMbean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
+                                     process="@this" value="Törlés" actionListener="#{menuCRUDMbean.remove}"
+                                     update="@form">
+                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
+                    </p:commandButton>
+                    <p:commandButton disabled="#{menuCRUDMbean.selectedEntity.id==null}" id="update" process="@this"
+                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=menuForm])"
+                                     oncomplete="PF('menuDialog').show()"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
+
+                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
+
+                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xls" target="table" fileName="export"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
+                    </p:commandButton>
+
+                    <!-- TODO Utf-8 karakter -->
+                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="pdf" target="table" fileName="export"/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="table" paginator="true" value="#{menuCRUDMbean.list}" var="menuItem"
+                         selectionMode="single" selection="#{menuCRUDMbean.selectedEntity}" rowKey="#{menuItem.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+                <p:column toggleable="false" sortBy="#{menuItem.id}" filterBy="#{menuItem.id}" filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{menuItem.id}"/>
+                </p:column>
+                <p:column sortBy="#{menuItem.url}" filterBy="#{menuItem.url}" headerText="url"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{menuItem.url}"/>
+                </p:column>
+                <p:column sortBy="#{menuItem.label}" filterBy="#{menuItem.label}" headerText="label" filterMatchMode="contains">
+                    <h:outputText value="#{menuItem.label}"/>
+                </p:column>
+
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="menuDialog" widgetVar="menuDialog" header="Form" modal="true" closable="true">
+            <h:form id="menuForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
+                    <p:outputLabel value="Label"/>
+                    <p:inputText value="#{menuCRUDMbean.selectedEntity.label}" required="true"
+                                 requiredMessage="Label kötelező"/>
+
+                    <p:outputLabel value="URL"/>
+                    <p:inputText value="#{menuCRUDMbean.selectedEntity.url}" required="true"
+                                 requiredMessage="URL kötelező"/>
+
+                    <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{menuCRUDMbean.save()}"
+                                     process="formPanel" update=":form"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

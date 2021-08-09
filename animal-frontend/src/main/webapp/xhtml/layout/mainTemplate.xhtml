@@ -11,12 +11,8 @@
 
     <ui:insert name="menuBar">
         <h:form>
-            <p:menubar >
-                <p:menuitem outcome="/xhtml/cat.xhtml" value="Cat"/>
-                <p:menuitem outcome="/xhtml/dog.xhtml" value="Dog"/>
-                <p:menuitem outcome="/xhtml/reindeer.xhtml" value="Reindeer"/>
-                <p:menuitem outcome="/xhtml/slug.xhtml" value="Slug"/>
-                <p:menuitem outcome="/xhtml/farmer.xhtml" value="Farmer"/>
+            <!--hogyen kellene úgy model-el elkészíteni a menüt, hogy uygan így nézzen ki-->
+            <p:menubar model="#{menuProviderBean.getMenuModel()}">
             </p:menubar>
         </h:form>
     </ui:insert>
