@@ -5,102 +5,113 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
-<h:head>
-    <title>Reindeer demo</title>
-</h:head>
 <body>
-<h:form id="form">
-    <p:growl id="growl" showDetail="false"/>
-    <p:toolbar>
-        <p:toolbarGroup>
-            <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
-                             actionListener="#{reindeerCRUDMbean.initSave}" update="@([id$=reindeerForm])"
-                             oncomplete="PF('reindeerDialog').show()"/>
-            <p:commandButton disabled="#{reindeerCRUDMbean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
-                             process="@this" value="Törlés" actionListener="#{reindeerCRUDMbean.remove}" update="@form">
-                <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
-            </p:commandButton>
-            <p:commandButton disabled="#{reindeerCRUDMbean.selectedEntity.id==null}" id="update" process="@this"
-                             value="Módosítás" icon="pi pi-pencil" update="@([id$=reindeerForm])"
-                             oncomplete="PF('reindeerDialog').show()"/>
-        </p:toolbarGroup>
-        <p:toolbarGroup align="right">
-            <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
+<ui:composition template="layout/mainTemplate.xhtml">
 
-            <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
+    <ui:define name="title">Reindeer demo</ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="false"/>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
+                                     actionListener="#{reindeerCRUDMbean.initSave}" update="@([id$=reindeerForm])"
+                                     oncomplete="PF('reindeerDialog').show()"/>
+                    <p:commandButton disabled="#{reindeerCRUDMbean.selectedEntity.id==null}" id="delete"
+                                     icon="pi pi-times"
+                                     process="@this" value="Törlés" actionListener="#{reindeerCRUDMbean.remove}"
+                                     update="@form">
+                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
+                    </p:commandButton>
+                    <p:commandButton disabled="#{reindeerCRUDMbean.selectedEntity.id==null}" id="update" process="@this"
+                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=reindeerForm])"
+                                     oncomplete="PF('reindeerDialog').show()"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
 
-            <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
-                <p:dataExporter type="xls" target="table" fileName="export"/>
-            </p:commandButton>
+                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
 
-            <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
-                <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
-            </p:commandButton>
+                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xls" target="table" fileName="export"/>
+                    </p:commandButton>
 
-            <!-- TODO Utf-8 karakter -->
-            <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
-                <p:dataExporter type="pdf" target="table" fileName="export"/>
-            </p:commandButton>
-        </p:toolbarGroup>
-    </p:toolbar>
+                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
+                    </p:commandButton>
 
-    <p:dataTable id="table" paginator="true" value="#{reindeerCRUDMbean.list}" var="reindeer"
-                 selectionMode="single" selection="#{reindeerCRUDMbean.selectedEntity}" rowKey="#{reindeer.id}"
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                 rowsPerPageTemplate="5,10,{ShowAll|'All'}">
-        <p:ajax event="rowSelect" update="@form"/>
-        <p:column toggleable="false" sortBy="#{reindeer.id}" filterBy="#{reindeer.id}" filterMatchMode="contains"
-                  headerText="ID">
-            <h:outputText value="#{reindeer.id}"/>
-        </p:column>
-        <p:column sortBy="#{reindeer.legsNumber}" filterBy="#{reindeer.legsNumber}" headerText="Lábak száma"
-                  filterMatchMode="contains">
-            <h:outputText value="#{reindeer.legsNumber}"/>
-        </p:column>
-        <p:column sortBy="#{reindeer.hornNumber}" filterBy="#{reindeer.hornNumber}" headerText="Szarvak száma"
-                  filterMatchMode="contains">
-            <h:outputText value="#{reindeer.hornNumber}"/>
-        </p:column>
-        <p:column sortBy="#{reindeer.name}" filterBy="#{reindeer.name}" headerText="Name" filterMatchMode="contains">
-            <h:outputText value="#{reindeer.name}"/>
-        </p:column>
-        <p:column sortBy="#{reindeer.farmer.fullName}" filterBy="#{reindeer.farmer.fullName}" headerText="Farmer neve" filterMatchMode="contains">
-            <h:outputText value="#{reindeer.farmer.fullName}"/>
-        </p:column>
+                    <!-- TODO Utf-8 karakter -->
+                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="pdf" target="table" fileName="export"/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
 
-    </p:dataTable>
-    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-        <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-        <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
-    </p:confirmDialog>
-</h:form>
+            <p:dataTable id="table" paginator="true" value="#{reindeerCRUDMbean.list}" var="reindeer"
+                         selectionMode="single" selection="#{reindeerCRUDMbean.selectedEntity}" rowKey="#{reindeer.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+                <p:column toggleable="false" sortBy="#{reindeer.id}" filterBy="#{reindeer.id}"
+                          filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{reindeer.id}"/>
+                </p:column>
+                <p:column sortBy="#{reindeer.legsNumber}" filterBy="#{reindeer.legsNumber}" headerText="Lábak száma"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{reindeer.legsNumber}"/>
+                </p:column>
+                <p:column sortBy="#{reindeer.hornNumber}" filterBy="#{reindeer.hornNumber}" headerText="Szarvak száma"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{reindeer.hornNumber}"/>
+                </p:column>
+                <p:column sortBy="#{reindeer.name}" filterBy="#{reindeer.name}" headerText="Name"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{reindeer.name}"/>
+                </p:column>
+                <p:column sortBy="#{reindeer.farmer.fullName}" filterBy="#{reindeer.farmer.fullName}"
+                          headerText="Farmer neve" filterMatchMode="contains">
+                    <h:outputText value="#{reindeer.farmer.fullName}"/>
+                </p:column>
 
-<p:dialog id="reindeerDialog" widgetVar="reindeerDialog" header="Form" modal="true" closable="true">
-    <h:form id="reindeerForm">
-        <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
-            <p:outputLabel value="Név"/>
-            <p:inputText value="#{reindeerCRUDMbean.selectedEntity.name}" required="true" requiredMessage="Név kötelező"/>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
 
-            <p:outputLabel value="Lábak száma"/>
-            <p:inputNumber maxValue="100" thousandSeparator="" decimalPlaces="0"
-                           value="#{reindeerCRUDMbean.selectedEntity.legsNumber}" required="true"
-                           requiredMessage="Lábak száma kötelező"/>
+        <p:dialog id="reindeerDialog" widgetVar="reindeerDialog" header="Form" modal="true" closable="true">
+            <h:form id="reindeerForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
+                    <p:outputLabel value="Név"/>
+                    <p:inputText value="#{reindeerCRUDMbean.selectedEntity.name}" required="true"
+                                 requiredMessage="Név kötelező"/>
 
-            <p:outputLabel value="Szarvak száma"/>
-            <p:inputNumber maxValue="3" thousandSeparator="" decimalPlaces="0"
-                           value="#{reindeerCRUDMbean.selectedEntity.hornNumber}" required="true"
-                           requiredMessage="Szarvak száma kötelező"/>
+                    <p:outputLabel value="Lábak száma"/>
+                    <p:inputNumber maxValue="100" thousandSeparator="" decimalPlaces="0"
+                                   value="#{reindeerCRUDMbean.selectedEntity.legsNumber}" required="true"
+                                   requiredMessage="Lábak száma kötelező"/>
 
-            <p:outputLabel value="Farmer"/>
-            <p:selectOneMenu value="#{reindeerCRUDMbean.selectedEntity.farmer}" converter="#{farmerConverter}">
-                <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon"/>
-                <f:selectItems value="#{reindeerCRUDMbean.farmerList}" var="farmer" itemLabel="#{farmer.fullName}" itemValue="#{farmer}"/>
-            </p:selectOneMenu>
-            <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{reindeerCRUDMbean.save()}"
-                             process="formPanel" update=":form"/>
-        </p:panelGrid>
-    </h:form>
-</p:dialog>
+                    <p:outputLabel value="Szarvak száma"/>
+                    <p:inputNumber maxValue="3" thousandSeparator="" decimalPlaces="0"
+                                   value="#{reindeerCRUDMbean.selectedEntity.hornNumber}" required="true"
+                                   requiredMessage="Szarvak száma kötelező"/>
+
+                    <p:outputLabel value="Farmer"/>
+                    <p:selectOneMenu value="#{reindeerCRUDMbean.selectedEntity.farmer}" converter="#{farmerConverter}">
+                        <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon"/>
+                        <f:selectItems value="#{reindeerCRUDMbean.farmerList}" var="farmer"
+                                       itemLabel="#{farmer.fullName}"
+                                       itemValue="#{farmer}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{reindeerCRUDMbean.save()}"
+                                     process="formPanel" update=":form"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
 </body>
 </html>

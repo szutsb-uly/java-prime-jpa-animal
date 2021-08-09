@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xml:lang="en" lang="en">
+<h:head>
+    <title><ui:insert name="title"/></title>
+</h:head>
+<h:body>
+
+    <ui:insert name="menuBar">
+        <h:form>
+            <p:menubar >
+                <p:menuitem outcome="/xhtml/cat.xhtml" value="Cat"/>
+                <p:menuitem outcome="/xhtml/dog.xhtml" value="Dog"/>
+                <p:menuitem outcome="/xhtml/reindeer.xhtml" value="Reindeer"/>
+                <p:menuitem outcome="/xhtml/slug.xhtml" value="Slug"/>
+                <p:menuitem outcome="/xhtml/farmer.xhtml" value="Farmer"/>
+            </p:menubar>
+        </h:form>
+    </ui:insert>
+    <ui:insert name="content"/>
+    <ui:insert name="footer">
+        Állati applikáció ©
+    </ui:insert>
+</h:body>
+</html>
