@@ -34,3 +34,8 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/api/farmer/data/1
+Accept: application/json
+
+###
+

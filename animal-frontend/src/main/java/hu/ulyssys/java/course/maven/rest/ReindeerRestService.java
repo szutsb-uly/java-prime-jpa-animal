@@ -13,21 +13,6 @@ public class ReindeerRestService extends CoreRestService<Reindeer, ReindeerModel
         return new Reindeer();
     }
 
-    @Override
-    protected ReindeerModel initNewModel() {
-        return new ReindeerModel();
-    }
 
-    @Override
-    protected void populateEntityFromModel(Reindeer entity, ReindeerModel model) {
-        super.populateEntityFromModel(entity, model);
-        entity.setHornNumber(model.getHornNumber());
-    }
 
-    @Override
-    protected ReindeerModel createModelFromEntity(Reindeer entity) {
-        ReindeerModel reindeerModel = super.createModelFromEntity(entity);
-        reindeerModel.setHornNumber(entity.getHornNumber());
-        return reindeerModel;
-    }
 }

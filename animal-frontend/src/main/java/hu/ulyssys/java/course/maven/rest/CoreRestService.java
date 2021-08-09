@@ -1,12 +1,11 @@
 package hu.ulyssys.java.course.maven.rest;
 
 import hu.ulyssys.java.course.maven.entity.AbstractAnimal;
-import hu.ulyssys.java.course.maven.entity.Cat;
 import hu.ulyssys.java.course.maven.rest.model.CoreRestModel;
-import hu.ulyssys.java.course.maven.service.CatService;
 import hu.ulyssys.java.course.maven.service.CoreService;
 import hu.ulyssys.java.course.maven.service.FarmerAwareService;
 import hu.ulyssys.java.course.maven.service.FarmerService;
+import hu.ulyssys.java.course.maven.util.CoreModelMapperBean;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -20,13 +19,12 @@ import java.util.stream.Collectors;
 public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRestModel> {
 
     @Inject
-    private FarmerService farmerService;
-
-    @Inject
     private CoreService<T> coreService;
 
     @Inject
     private FarmerAwareService<T> farmerAwareService;
+    @Inject
+    private CoreModelMapperBean<M, T> modelMapperBean;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,22 +91,11 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
     }
 
     protected void populateEntityFromModel(T entity, M model) {
-        if (model.getFarmerID() != null) {
-            entity.setFarmer(farmerService.findById(model.getFarmerID()));
-        }
-        entity.setName(model.getName());
-        entity.setLegsNumber(model.getLegsNumber());
+        modelMapperBean.populateEntityFromModel(entity, model);
     }
 
     protected M createModelFromEntity(T entity) {
-        M model = initNewModel();
-        model.setLegsNumber(entity.getLegsNumber());
-        model.setId(entity.getId());
-        model.setName(entity.getName());
-        if (entity.getFarmer() != null) {
-            model.setFarmerID(entity.getFarmer().getId());
-        }
-        return model;
+        return modelMapperBean.createModelFromEntity(entity);
     }
 
     //Generikus típus megszerzés, és reflection alapú objektum inicializálása
@@ -131,6 +118,8 @@ public abstract class CoreRestService<T extends AbstractAnimal, M extends CoreRe
         return null;
     }
 
-    protected abstract M initNewModel();
+    protected M initNewModel() {
+        return modelMapperBean.initNewModel();
+    }
 
 }

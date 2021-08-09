@@ -19,8 +19,4 @@ public class SlugRestService extends CoreRestService<Slug, SlugModel> {
         return new Slug();
     }
 
-    @Override
-    protected SlugModel initNewModel() {
-        return new SlugModel();
-    }
 }
